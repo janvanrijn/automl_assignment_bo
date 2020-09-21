@@ -34,7 +34,9 @@ Note that for each function that needs to be implemented, you need to write appr
 
 Have a good look at the Unit tests. They specifically demonstrate how Sequential Model-based Optimization works and demonstrrate how the interface can be invoked. 
 If all unit tests succeed, this is a good indication that the assignment could be completed successfully. 
-Hint: make sure to work with the following version of numpy (1.16.5), pandas (0.25.1), scikit-learn (0.21.2) and ConfigSpace (0.4.10) to prevent errors due to randomness. 
+Hint: make sure to work with the versions of numpy, scipy, scikit-learn and ConfigSpace as specified in the `requirements.txt` file, to prevent errors due to randomness. 
+These are at moment of publication the most recent versions that are compatible with each other. 
+In order to install ConfigSpace, you need the Cython package (note that pip install does not impose any order, so you might want to install Cython by hand first). 
 
 ## Time limit
 
