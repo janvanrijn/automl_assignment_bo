@@ -23,9 +23,8 @@ The assignment consists of three files,
 * `test.py`: a file with unit tests
 
 In the file `assignment.py`, you are expected to finish the following functions:
-* `select_configuration(...)`: Receives an array of configurations, and needs to select the best of these (i.e., the one that most likely yields the most improvement over the current best configuration, $\theta_\mathit{inc}$). It uses an auxiliary function to calculate for each configuration what is the expected improvement. 
-* `expected_improvement(...)`: Function to determine for a set of configurations what the expected improvement is. Hint: the `GaussianProcessRegressor` has a predict function that takes as argument `return_std`, to receive both the predicted mean ($\mu$) and standard deviation ($\sigma$) per configuration. EI is defined as:
-    ![EI(x) = (\mu-f*)\Phi(\frac{\mu-f*}{\sigma}) + \sigma(\phi(\frac{\mu-f*}{\sigma}))]
+* `select_configuration(...)`: Receives an array of configurations, and needs to select the best of these (i.e., the one that most likely yields the most improvement over the current best configuration, &theta;<sub>inc</sub>). It uses an auxiliary function to calculate for each configuration what is the expected improvement. 
+* `expected_improvement(...)`: Function to determine for a set of configurations what the expected improvement is. Hint: the `GaussianProcessRegressor` has a predict function that takes as argument `return_std`, to receive both the predicted mean ($\mu$) and standard deviation ($\sigma$) per configuration. EI is defined in the slides
     where `$\Phi$` and `$\phi$` are the CDF and PDF of a standard normal distribution, respectively. (Note a slightly different formalation, as we are optimizing).
 * `update_runs(...)`: Replacement of intensification function. Intensify can only be used when working across multiple random seeds, cross-validation folds, and in this case we have only a single measurement. Intensification will therefore yield no improvement over just running each configuration. This function adds the last run to the list of all seen runs (so the model can be trained on it) and updates $\theta_\mathit{inc}$ in case a new best algorithm was found. 
 \end{itemize}
