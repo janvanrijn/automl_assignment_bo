@@ -1,5 +1,5 @@
-import ConfigSpace
 import numpy as np
+import scipy.stats
 import sklearn.datasets
 import sklearn.model_selection
 import sklearn.svm
@@ -62,20 +62,11 @@ class TestMetaModels(unittest.TestCase):
             return sklearn.metrics.accuracy_score(y_valid, clf.predict(X_valid))
 
         def sample_configurations(n_configurations):
-            # function uses the ConfigSpace package, as developed at Freiburg University.
-            # most of this functionality can also be achieved by the scipy package
             # same hyperparameter configuration as in scikit-learn
-            cs = ConfigSpace.ConfigurationSpace('sklearn.svm.SVC', 1)
+            C = scipy.stats.loguniform.rvs(0.03125, 32768, loc=0, size=n_configurations, random_state=1).reshape((-1, 1))
+            gamma = scipy.stats.loguniform.rvs(3.0517578125e-05, 8, loc=0, size=n_configurations, random_state=1).reshape((-1, 1))
 
-            C = ConfigSpace.UniformFloatHyperparameter(
-                name='C', lower=0.03125, upper=32768, log=True, default_value=1.0)
-            gamma = ConfigSpace.UniformFloatHyperparameter(
-                name='gamma', lower=3.0517578125e-05, upper=8, log=True, default_value=0.1)
-            cs.add_hyperparameters([C, gamma])
-
-            return np.array([(configuration.get_dictionary()['gamma'],
-                              configuration.get_dictionary()['C'])
-                            for configuration in cs.sample_configuration(n_configurations)])
+            return np.concatenate([C, gamma], axis=1)
 
         def sample_initial_configurations(n: int) -> typing.List[typing.Tuple[np.array, float]]:
             configs = sample_configurations(n)
